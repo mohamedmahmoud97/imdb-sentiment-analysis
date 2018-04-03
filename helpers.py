@@ -7,31 +7,33 @@ from nltk.corpus import wordnet
 import pathlib
 from multiprocessing import Process,Lock,Value
 
-def speedy(dirs,n_jobs=4):
+def speedy(dirs,n_jobs=4,target_suffix='clean'):
     procs = []
     procs_per_dir = n_jobs
-    lock = Lock()
 
-    for (idx,curr_dir) in enumerate(dirs):
+    for curr_dir in dirs:
         curr_dir_size = dir_size(curr_dir)
-        cleaned_files = [0]
+        target_dir = curr_dir.split('/')[0]+f'_{target_suffix}/'+'/'.join(curr_dir.split('/')[1:])
+        if(os.path.isdir(target_dir)):
+            continue
+        print(f'cleaning{curr_dir}')
         for i in range(procs_per_dir):
             start = i*curr_dir_size//procs_per_dir
             end = (i+1)*curr_dir_size//procs_per_dir
-            proc = Process(target=write_clean_docs, args=(curr_dir,start,end,lock,(i+1)*(idx+1),curr_dir_size,cleaned_files))
+            proc = Process(target=write_clean_docs, args=(curr_dir,target_dir,start,end,))
             procs.append(proc)
             proc.start()
     for proc in procs:
         proc.join()
+    return curr_dir.split('/')[0]+f'_{target_suffix}/'
+    
 
 def dir_size(src_dir):
-    print(src_dir)
     return len([name for name in os.listdir(os.fsencode(src_dir))])
 
-def write_clean_docs(src_dir,start,end,lock,p_num=-1,total_files=100,cleaned_files=None):
+def write_clean_docs(src_dir,target_dir,start,end):
     
     directory = os.fsencode(src_dir)
-    target_dir = src_dir.split('/')[0]+'_clean/'+'/'.join(src_dir.split('/')[1:])
     pathlib.Path(target_dir).mkdir(parents=True, exist_ok=True)
     
     for file in os.listdir(directory):
@@ -41,11 +43,6 @@ def write_clean_docs(src_dir,start,end,lock,p_num=-1,total_files=100,cleaned_fil
                 current_doc = f.read()
             with open(os.path.join(target_dir,filename),'w') as f:
                 f.write(clean_doc(current_doc))
-                
-            lock.acquire()
-            cleaned_files[0] +=1
-            print(f'{p_num} | {src_dir}: progress => {cleaned_files[0]}/{total_files} ')
-            lock.release()
 
 def clean_doc(doc):
     lemmatizer = WordNetLemmatizer()
