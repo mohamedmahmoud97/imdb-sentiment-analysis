@@ -1,3 +1,5 @@
 Data
 Data_clean
 models
+aclImdb*
+__pycache__/*

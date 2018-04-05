@@ -9,17 +9,12 @@ from nltk.corpus import wordnet
 
 def basic_cleaner(doc):
     lemmatizer = WordNetLemmatizer()
-    clean_doc = re.sub('<.+?>',' ',doc).lower()
-    clean_doc = re.sub("'m",' am',clean_doc)
-    clean_doc = re.sub("'re",' are',clean_doc)
-    clean_doc = re.sub("'s",' is',clean_doc)
-    clean_doc = re.sub("n't",' not',clean_doc)
-    clean_doc = re.sub("'ll",' will',clean_doc) 
-    clean_doc = re.sub("[!?(),`'\"./:;%$@#]"," ",clean_doc)
-      
-       
-    tokens = [token for token in nltk.word_tokenize(clean_doc) if token not in set(stopwords.words('english')) and not token.isdigit()]
-    clean_doc = ' '.join([lemmatizer.lemmatize(token,get_wordnet_pos(tag)) for token,tag in nltk.pos_tag(tokens)])
+    
+    clean_doc = re.sub(r'<.+?>|[!"#$%&\'()=*+,-./:;?@\[\]^_`{|}~<>]|[0-9]', ' ', doc)
+    clean_doc = ' '.join([word.lower() for word in clean_doc.split()])
+    tokens =  [word for word in clean_doc.split() if word not in set(stopwords.words('english'))]
+    tagged_tokens = [(pair[0],get_wordnet_pos(pair[1])) for pair in nltk.pos_tag(tokens)]
+    clean_doc = ' '.join([ lemmatizer.lemmatize(word,tag) for word,tag in tagged_tokens])
     return clean_doc
 
 def pos_cleaner(doc):
