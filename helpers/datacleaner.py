@@ -47,30 +47,3 @@ def pos_cleaner(doc):
     clean_doc = ' '.join([ lemmatizer.lemmatize(word,get_wordnet_pos(tag))+'_'+tag for word,tag in nltk.pos_tag(tokens)])
     
     return clean_doc
-
-# # Multithreaded Cleaning
-# def batch_cleaner(docs, clean_docs, cleaner, lock, start, end):
-#     my_cleaned_docs = []
-#     for i in range(start,end):
-#         my_cleaned_docs.append(cleaner(docs[i]))
-
-#     lock.acquire()
-#     clean_docs.extend(my_cleaned_docs)
-#     print(f'cleaned docs [{start},{end}]')
-#     lock.release()
-  
-# def speedy(cleaner,docs,n_jobs=4):
-#     clean_docs = []
-#     threads = []
-#     n_docs = len(docs)
-#     lock = Lock()
-#     for i in range(n_jobs):
-#         start = i*n_docs//n_jobs
-#         end = (i+1)*n_docs//n_jobs
-#         threads.append(Thread(target=batch_cleaner, args=(docs, clean_docs, cleaner, lock, start, end )))
-#         threads[-1].start()
-        
-#     for thread in threads:
-#         thread.join()
-
-#     return clean_docs
