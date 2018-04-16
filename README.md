@@ -160,6 +160,11 @@ This was our last try to improve the accuracy of this method, however we didn’
 Doc2Vec Model
 -------------
 
+Here, we just used basic cleaning then used validation set to find best classifier, which was the SVM RBF classifier.
+Best accuracy using Doc2Vec as features was 86.7\%.
+![rbf](images/bestrbf.jpg)
+[fig: Best accuracy of tuning on SVM RBF kernel]
+
 Conclusion
 ==========
 
