@@ -103,23 +103,23 @@ Hyper-parameters are parameters that are not directly learnt within estimators. 
 
 -   Multinomial Naive Bayes Classifier
 
-    ![GridSearch Result for MultiNB with alpha=0.5,1](images/MultiNB.jpg "fig:") [fig:nb]
+    ![GridSearch Result for MultiNB with alpha=0.5,1](images/MultiNB.jpg "fig:") [fig:GridSearch Result for MultiNB with alpha=0.5,1]
 
 -   Adaboost
 
-    ![GridSearch Result for Adaboost with n\_estimator=50,100,200](images/Adaboost.jpg "fig:") [fig:adaboost]
+    ![GridSearch Result for Adaboost with n\_estimator=50,100,200](images/Adaboost.jpg "fig:") [fig:GridSearch Result for Adaboost with n\_estimator=50,100,200]
 
 -   Random forest
 
-    ![GridSearch Result for Random Forest with n\_estimator=50,100,200](images/RandomForest.jpg "fig:") [fig:randomforest]
+    ![GridSearch Result for Random Forest with n\_estimator=50,100,200](images/RandomForest.jpg "fig:") [fig:GridSearch Result for Random Forest with n\_estimator=50,100,200]
 
 -   Decision Tree Classifier
 
-    ![GridSearch Result for MultiNB with min\_sample\_split=2,10,20](images/DecisionTree.jpg "fig:") [fig:tree]
+    ![GridSearch Result for MultiNB with min\_sample\_split=2,10,20](images/DecisionTree.jpg "fig:") [fig:GridSearch Result for MultiNB with min\_sample\_split=2,10,20]
 
 -   Logistic Regression Classifier
 
-    ![GridSearch Result for Logistic Regression with C=0.1,5,10,15,20](images/LogisticRegression.jpg "fig:") [fig:logistic]
+    ![GridSearch Result for Logistic Regression with C=0.1,5,10,15,20](images/LogisticRegression.jpg "fig:") [fig:GridSearch Result for Logistic Regression with C=0.1,5,10,15,20]
 
 Word2Vec Model
 --------------
