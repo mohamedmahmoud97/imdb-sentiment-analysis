@@ -166,4 +166,5 @@ Conclusion
 After trying all models, we observed that the TF-IDF has the highest accuracy with the Logistic Regression classifier.
 
 ![Best Model](images/bestacc.jpg)
+
 [fig: Best Accuracy with TF-IDF and Logistic Regression classifier]
