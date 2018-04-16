@@ -152,15 +152,15 @@ As previously stated, we have tried three different preprocessing techniques wit
 
 ### Basic Cleaning
 
-Figure [fig:word2vec<sub>r</sub>bf] shows that the best accuracy achieved on the validation set is just above 77%, this accuracy however dropped by one percent to 76.6 on the test data.This was the best performing classifier, the rest of the classifiers and their validation set performance is in the accompanying jupyter notebook.
+The best accuracy achieved on the validation set is just above 77%, this accuracy however dropped by one percent to 76.6 on the test data.This was the best performing classifier, the rest of the classifiers and their validation set performance is in the accompanying jupyter notebook.
 
 ### Part of speech tagging
 
-The SVM with a RBF kernel achieved the best accuracy when using this method as well which was also just above 77% as shown in Figure [fig:word2vec<sub>r</sub>bf<sub>p</sub>os] which isn’t much of an improvement over the basic cleaning method.
+The SVM with a RBF kernel achieved the best accuracy when using this method as well which was also just above 77% which isn’t much of an improvement over the basic cleaning method.
 
 ### Removal of noisy words
 
-This was our last try to improve the accuracy of this method, however we didn’t seem to get any improvement either as the accuracy dropped by 0.5% with the SVM as Figure [word2vec<sub>r</sub>bf<sub>f</sub>req] shows.
+This was our last try to improve the accuracy of this method, however we didn’t seem to get any improvement either as the accuracy dropped by 0.5% with the SVM.
 
 ![Performance of svm with RBF kernel on the validation set with basic cleaning](images/word2vec_rbf.png "fig:") 
 
