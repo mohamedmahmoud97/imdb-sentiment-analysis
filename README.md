@@ -32,15 +32,19 @@ Part of Speech Tagging
 As another preprocessing step, we appended the part of speech tags to their corresponding words and treated the resulting compound words as our vocabulary, we only tried this approach with the word2vec model.
 
 ![A word cloud of the words in negative docs just after cleaning](images/neg_docs.png "fig1:")
+
 [fig1: A word cloud of the words in negative docs just after cleaning]
 
 ![A word cloud of the words in positive docs just after cleaning](images/pos_docs.png "fig2:")
+
 [fig2: A word cloud of the words in positive docs just after cleaning]
 
 ![A word cloud of the words in positive docs after removing noisy words](images/neg_frequent_removed.png "fig3:")
+
 [fig3: A word cloud of the words in positive docs after removing noisy words]
 
 ![A word cloud of the words in positive docs just after removing noisy words](images/pos_frequent_removed.png "fig:")
+
 [fig4: A word cloud of the words in positive docs just after removing noisy words]
 
 Feature extraction
@@ -65,6 +69,7 @@ This representation mainly relies on building word vectors for each word in the 
 The exact method we used to produce the word vectors was the word2vec model, to be specific we used the implementation provided by the gensim library.This model has 2 variants the continuous bag of words or CBOW for short and the skip-gram model, at the core of those two lies a 2 layer neural network that receives as input a binary vector with a one in the position of the word or words we want to input. As for the output of the network, this is what differentiates the two variants, as for CBOW it takes as input a window of words and learns a function that predicts the next word following the window-the output is a vector of probabilities that has the length of the vocabulary.The skip-gram model differs from the other variant in that it tries to predict the probability that a word in the vocabulary appears in the window centered at the input word to the network.The network also uses a softmax layer for scoring.After the network is trained the hidden layer wights are considered our word vectors, Figure [fig:word2vec] shows a subset of the word vectors projected into 2 dimensions using PCA, the proximity of points should indicate how close they are in meaning for example bananas and apples should have very close vectors- the network extracts this from the context of the words in the corpus, however due to the relatively small size of our corpus the vectors aren’t very accurate.
 
 ![A plot of some word vectors](images/word_vectors.png "fig:") 
+
 [fig5: A plot of some word vectors]
 
 Doc2vec
@@ -89,6 +94,7 @@ TF-IDF Model
 Now that we have our features, we can train a classifier to try to predict the positivity of a review. for all the previous three steps we used pipeline. In order to make the vectorizer transformer classifier easier to work with, scikit-learn provides a Pipeline class that behaves like a compound classifier so we used it as a one shot excutioner. Below you will find an example of how to implement a piepline class.
 
 ![A pipeline example](images/pipeline.jpg "fig:") 
+
 [fig6: A pipeline example]
 
 ### Hyperparameter Tuning and crossvalidating the training data
@@ -110,26 +116,31 @@ Hyper-parameters are parameters that are not directly learnt within estimators. 
 -   Multinomial Naive Bayes Classifier
 
     ![GridSearch Result for MultiNB with alpha=0.5,1](images/MultiNB.jpg "fig:") 
+    
     [fig7: GridSearch Result for MultiNB with alpha=0.5,1]
 
 -   Adaboost
 
     ![GridSearch Result for Adaboost with n\_estimator=50,100,200](images/Adaboost.jpg "fig:") 
+    
     [fig8: GridSearch Result for Adaboost with n\_estimator=50,100,200]
 
 -   Random forest
 
     ![GridSearch Result for Random Forest with n\_estimator=50,100,200](images/RandomForest.jpg "fig:") 
+    
     [fig9: GridSearch Result for Random Forest with n\_estimator=50,100,200]
 
 -   Decision Tree Classifier
 
     ![GridSearch Result for MultiNB with min\_sample\_split=2,10,20](images/DecisionTree.jpg "fig:") 
+    
     [fig10: GridSearch Result for MultiNB with min\_sample\_split=2,10,20]
 
 -   Logistic Regression Classifier
 
     ![GridSearch Result for Logistic Regression with C=0.1,5,10,15,20](images/LogisticRegression.jpg "fig:") 
+    
     [fig11: GridSearch Result for Logistic Regression with C=0.1,5,10,15,20]
 
 Word2Vec Model
@@ -151,11 +162,17 @@ The SVM with a RBF kernel achieved the best accuracy when using this method as w
 
 This was our last try to improve the accuracy of this method, however we didn’t seem to get any improvement either as the accuracy dropped by 0.5% with the SVM as Figure [word2vec<sub>r</sub>bf<sub>f</sub>req] shows.
 
-![Performance of svm with RBF kernel on the validation set with basic cleaning](images/word2vec_rbf.png "fig:") [fig:word2vec<sub>r</sub>bf]
+![Performance of svm with RBF kernel on the validation set with basic cleaning](images/word2vec_rbf.png "fig:") 
 
-![Performance of svm with RBF kernel on the validation set with appending POS tags](images/word2vec_rbf_POSTags.png "fig:") [fig:word2vec<sub>r</sub>bf<sub>p</sub>os]
+[fig:word2vec<sub>r</sub>bf]
 
-![Performance of svm with RBF kernel on the validation set with noisy words removed](images/word2vec_rbf_freq.png "fig:") [fig:word2vec<sub>r</sub>bf<sub>f</sub>req]
+![Performance of svm with RBF kernel on the validation set with appending POS tags](images/word2vec_rbf_POSTags.png "fig:") 
+
+[fig:word2vec<sub>r</sub>bf<sub>p</sub>os]
+
+![Performance of svm with RBF kernel on the validation set with noisy words removed](images/word2vec_rbf_freq.png "fig:") 
+
+[fig:word2vec<sub>r</sub>bf<sub>f</sub>req]
 
 Doc2Vec Model
 -------------
@@ -163,6 +180,7 @@ Doc2Vec Model
 Here, we just used basic cleaning then used validation set to find best classifier, which was the SVM RBF classifier.
 Best accuracy using Doc2Vec as features was 86.7\%.
 ![rbf](images/bestrbf.jpg)
+
 [fig: Best accuracy of tuning on SVM RBF kernel]
 
 Conclusion
